@@ -8,8 +8,19 @@ var stylus = require('stylus');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var mailer = require('./routes/mailer');
 
 var app = express();
+
+const sendmail = require('sendmail')({
+  logger: {
+    debug: console.log,
+    info: console.info,
+    warn: console.warn,
+    error: console.error
+  },
+  silent: false
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,6 +37,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.post('/sendmail', function(req, res, next){
+
+	sendmail({
+	    from: 'no-reply@whistlehq.com',
+	    to: req.body.email,
+	    subject: req.body.sub,
+	    html: req.body.content
+	  }, function(err, reply) {
+	    console.log(err && err.stack);
+	    console.dir(reply);
+	});
+
+	res.send('we shall try to find the email.');
+
+	console.log(req.body);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
