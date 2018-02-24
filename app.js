@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var stylus = require('stylus');
+var fs = require('fs');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -19,6 +20,10 @@ const sendmail = require('sendmail')({
     warn: console.warn,
     error: console.error
   },
+  // dkim: {
+  //   privateKey: fs.readFileSync('./nopeload/whistlehq.com.pem', 'utf8'),
+  //   keySelector: 'therewillbepeace._domainkey'
+  // },
   silent: false
 })
 
