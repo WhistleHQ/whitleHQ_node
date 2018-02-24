@@ -21,7 +21,7 @@ const sendmail = require('sendmail')({
     error: console.error
   },
   dkim: {
-    privateKey: fs.readFileSync('./nopeload/whistlehq.com.pem', 'utf8'),
+    privateKey: fs.readFileSync(path.join(__dirname, '/nopeload/whistlehq.com.pem'), 'utf8'),
     keySelector: 'therewillbepeace._domainkey'
   },
   silent: false
