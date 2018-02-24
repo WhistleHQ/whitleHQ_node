@@ -20,10 +20,10 @@ const sendmail = require('sendmail')({
     warn: console.warn,
     error: console.error
   },
-  // dkim: {
-  //   privateKey: fs.readFileSync('./nopeload/whistlehq.com.pem', 'utf8'),
-  //   keySelector: 'therewillbepeace._domainkey'
-  // },
+  dkim: {
+    privateKey: fs.readFileSync('./nopeload/whistlehq.com.pem', 'utf8'),
+    keySelector: 'therewillbepeace._domainkey'
+  },
   silent: false
 })
 
